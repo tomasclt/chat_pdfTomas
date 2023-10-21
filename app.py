@@ -24,7 +24,7 @@ with st.sidebar:
     ''')
     add_vertical_space(5)
     st.write('Made with ❤️ by [Prompt Engineer](https://youtube.com/@engineerprompt)')
- 
+os.environ["OPENAI_API_KEY"] = "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"
 load_dotenv()
  
 def main():
