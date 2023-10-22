@@ -11,11 +11,11 @@ from langchain.callbacks import get_openai_callback
 
 #import pickle5 as pickle
 #from pathlib import Path
-
+st.header("Consulta tu PDF")
 ke = st.text_input('Ingresa tu Clave')
 #os.environ['OPENAI_API_KEY'] = st.secrets['OPENAI_API_KEY']
 os.environ['OPENAI_API_KEY'] = ke
-st.header("Consulta tu PDF")
+
 
     # upload file
 pdf = st.file_uploader("Carga el archivo PDF", type="pdf")
