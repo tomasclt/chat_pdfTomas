@@ -26,8 +26,8 @@ with st.sidebar:
     add_vertical_space(5)
     st.write('Made with ❤️ by [Prompt Engineer](https://youtube.com/@engineerprompt)')
 
-OPENAI_API_KEY=st.text_input("Escribe tu API_KEY:")
-os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
+mykey=st.text_input("Escribe tu API_KEY:")
+os.environ["OPENAI_API_KEY"] = mykey
 load_dotenv()
  
 def main():
