@@ -10,6 +10,7 @@ from langchain.llms import OpenAI
 from langchain.chains.question_answering import load_qa_chain
 from langchain.callbacks import get_openai_callback
 import os
+from config import OPENAI_API_KEY
  
 # Sidebar contents
 with st.sidebar:
@@ -24,7 +25,7 @@ with st.sidebar:
     ''')
     add_vertical_space(5)
     st.write('Made with ❤️ by [Prompt Engineer](https://youtube.com/@engineerprompt)')
-os.environ["OPENAI_API_KEY"] = "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"
+os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 load_dotenv()
  
 def main():
