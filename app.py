@@ -13,7 +13,6 @@ from langchain.callbacks import get_openai_callback
 #from pathlib import Path
 
 st.title('Chatea con tu PDF 💬')
-st.header("Consulta tu PDF")
 ke = st.text_input('Ingresa tu Clave')
 #os.environ['OPENAI_API_KEY'] = st.secrets['OPENAI_API_KEY']
 os.environ['OPENAI_API_KEY'] = ke
@@ -39,7 +38,8 @@ if pdf is not None:
       knowledge_base = FAISS.from_texts(chunks, embeddings)
 
 # show user input
-      user_question = st.text_input("Realiza la consulta a tu Informe:")
+      st.subheader("Escribe que quieres saber sobre el documento")
+      user_question = st.text_input(" ")
       if user_question:
         docs = knowledge_base.similarity_search(user_question)
 
