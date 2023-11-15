@@ -17,6 +17,11 @@ ke = st.text_input('Ingresa tu Clave')
 #os.environ['OPENAI_API_KEY'] = st.secrets['OPENAI_API_KEY']
 os.environ['OPENAI_API_KEY'] = ke
 
+pdfFileObj = open('example.pdf', 'rb')
+ 
+# creating a pdf reader object
+pdfReader = PyPDF2.PdfReader(pdfFileObj)
+
 
     # upload file
 pdf = st.file_uploader("Carga el archivo PDF", type="pdf")
