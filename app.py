@@ -15,9 +15,9 @@ from langchain.callbacks import get_openai_callback
 #import pickle5 as pickle
 #from pathlib import Path
 
-st.title('Chatea con tu PDF 💬')
+st.title('Generación Aumentada por Recuperación (RAG) 💬')
 image = Image.open('Chat_pdf.png')
-st.image(image, width=200)
+st.image(image, width=400)
 ke = st.text_input('Ingresa tu Clave')
 #os.environ['OPENAI_API_KEY'] = st.secrets['OPENAI_API_KEY']
 os.environ['OPENAI_API_KEY'] = ke
