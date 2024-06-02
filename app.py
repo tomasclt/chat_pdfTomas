@@ -1,6 +1,7 @@
 import os
 #from dotenv import load_dotenv
 import streamlit as st
+from PIL import Image
 import PyPDF2
 from PyPDF2 import PdfReader
 from langchain.text_splitter import CharacterTextSplitter
@@ -10,10 +11,13 @@ from langchain.chains.question_answering import load_qa_chain
 from langchain.llms import OpenAI
 from langchain.callbacks import get_openai_callback
 
+
 #import pickle5 as pickle
 #from pathlib import Path
 
 st.title('Chatea con tu PDF 💬')
+image = Image.open('Chat_pdf.png')
+st.image(image, width=200)
 ke = st.text_input('Ingresa tu Clave')
 #os.environ['OPENAI_API_KEY'] = st.secrets['OPENAI_API_KEY']
 os.environ['OPENAI_API_KEY'] = ke
