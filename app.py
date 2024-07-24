@@ -51,7 +51,7 @@ if pdf is not None:
 
 # show user input
       st.subheader("Escribe que quieres saber sobre el documento")
-      user_question = st.text_input(" ")
+      user_question = st.text_area(" ")
       if user_question:
         docs = knowledge_base.similarity_search(user_question)
 
