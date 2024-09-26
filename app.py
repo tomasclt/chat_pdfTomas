@@ -17,6 +17,7 @@ from langchain.callbacks import get_openai_callback
 
 st.title('Generación Aumentada por Recuperación (RAG) 💬')
 image = Image.open('Chat_pdf.png')
+st.write("Versión de Python:", platform.python_version())
 st.image(image, width=350)
 with st.sidebar:
    st.subheader("Este Agente, te ayudará a realizar algo de análisis sobre el PDF cargado")
