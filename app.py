@@ -56,7 +56,7 @@ if pdf is not None and ke:
         st.success(f"Documento dividido en {len(chunks)} fragmentos")
         
         # Create embeddings and knowledge base
-        embeddings = OpenAIEmbeddings()  # No verbose parameter
+        embeddings = OpenAIEmbeddings()
         knowledge_base = FAISS.from_texts(chunks, embeddings)
         
         # User question interface
@@ -67,8 +67,9 @@ if pdf is not None and ke:
         if user_question:
             docs = knowledge_base.similarity_search(user_question)
             
-            # Create OpenAI language model without verbose parameter
-            llm = OpenAI(temperature=0)  # No verbose parameter
+            # Use a current model instead of deprecated text-davinci-003
+            # Options: "gpt-3.5-turbo-instruct" or "gpt-4-turbo-preview" depending on your API access
+            llm = OpenAI(temperature=0, model_name="gpt-3.5-turbo-instruct")
             
             # Load QA chain
             chain = load_qa_chain(llm, chain_type="stuff")
@@ -82,6 +83,9 @@ if pdf is not None and ke:
                 
     except Exception as e:
         st.error(f"Error al procesar el PDF: {str(e)}")
+        # Add detailed error for debugging
+        import traceback
+        st.error(traceback.format_exc())
 elif pdf is not None and not ke:
     st.warning("Por favor ingresa tu clave de API de OpenAI para continuar")
 else:
