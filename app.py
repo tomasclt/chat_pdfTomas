@@ -4,10 +4,11 @@ from PIL import Image
 import PyPDF2
 from PyPDF2 import PdfReader
 from langchain.text_splitter import CharacterTextSplitter
-from langchain_openai import OpenAIEmbeddings
-from langchain_community.vectorstores import FAISS
+# Use the original langchain imports if you haven't installed the new packages
+from langchain.embeddings import OpenAIEmbeddings
+from langchain.vectorstores import FAISS
 from langchain.chains.question_answering import load_qa_chain
-from langchain_openai import OpenAI
+from langchain.llms import OpenAI
 from langchain.callbacks import get_openai_callback
 import platform
 
@@ -81,7 +82,7 @@ if pdf is not None and ke:
                     docs = knowledge_base.similarity_search(user_question)
                     
                     # You can change the model here
-                    llm = OpenAI(model_name="gpt-4o-mini")
+                    llm = OpenAI(model_name="gpt-4o-mini", temperature=0)
                     chain = load_qa_chain(llm, chain_type="stuff")
                     
                     with get_openai_callback() as cb:
