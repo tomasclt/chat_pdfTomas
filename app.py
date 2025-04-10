@@ -69,7 +69,7 @@ if pdf is not None and ke:
             
             # Use a current model instead of deprecated text-davinci-003
             # Options: "gpt-3.5-turbo-instruct" or "gpt-4-turbo-preview" depending on your API access
-            llm = OpenAI(temperature=0, model_name="gpt-3.5-turbo-instruct")
+            llm = OpenAI(temperature=0, model_name="gpt-4o")
             
             # Load QA chain
             chain = load_qa_chain(llm, chain_type="stuff")
