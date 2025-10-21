@@ -11,13 +11,10 @@ from langchain.vectorstores import FAISS
 from langchain.llms import OpenAI
 from langchain.chains.question_answering import load_qa_chain
 
-# ============================================================
-# CONFIGURACIÓN DE PÁGINA
-# ============================================================
 st.set_page_config(page_title="RAG PDF Analyzer", page_icon="💬", layout="centered")
 
 # ============================================================
-# ESTILO CLARO Y LEGIBLE (ajustado al feedback)
+# ESTILO VISUAL MEJORADO (sidebar + contraste uniforme)
 # ============================================================
 st.markdown("""
 <style>
@@ -26,19 +23,40 @@ st.markdown("""
   --panel:#0f172a; --border:#1e293b;
   --text:#ffffff; --muted:#d1d5db;
   --accent:#38bdf8; --accent2:#818cf8;
-  --highlight:#1e40af;
 }
+
 [data-testid="stAppViewContainer"]{
   background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%) !important;
   color: var(--text) !important;
   font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
 }
+
+/* ==== SIDEBAR ==== */
+[data-testid="stSidebar"] {
+  background: linear-gradient(180deg, #0b1224 0%, #0f172a 100%) !important;
+  color: var(--text) !important;
+  border-right: 1px solid #1e293b;
+}
+[data-testid="stSidebar"] h1, 
+[data-testid="stSidebar"] h2, 
+[data-testid="stSidebar"] h3,
+[data-testid="stSidebar"] p,
+[data-testid="stSidebar"] div,
+[data-testid="stSidebar"] span {
+  color: var(--text) !important;
+}
+[data-testid="stSidebar"] .stMarkdown {
+  color: var(--text) !important;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* Bloques de contenido */
 main .block-container{ padding-top: 1.8rem; padding-bottom: 2.2rem; max-width:850px; }
 
 h1,h2,h3, label, p, span, div, textarea, input, .stMarkdown {
   color: var(--text) !important;
 }
-
 h1 span.grad{
   background: linear-gradient(90deg, var(--accent), var(--accent2));
   -webkit-background-clip: text; background-clip: text; color: transparent;
@@ -101,6 +119,7 @@ footer{visibility:hidden;}
 </style>
 """, unsafe_allow_html=True)
 
+# Helpers para las tarjetas
 def card_start(): st.markdown('<div class="card">', unsafe_allow_html=True)
 def card_end():   st.markdown('</div>', unsafe_allow_html=True)
 
@@ -124,10 +143,12 @@ card_end()
 # ============================================================
 with st.sidebar:
     st.subheader("🧭 Instrucciones")
-    st.write("1️⃣ Ingresa tu clave de **OpenAI API**.")
-    st.write("2️⃣ Carga un archivo **PDF**.")
-    st.write("3️⃣ Escribe tu pregunta para analizar el contenido.")
-    st.write("🧠 Ideal para contratos, reportes o investigación académica.")
+    st.markdown("""
+    1️⃣ **Ingresa tu clave de OpenAI API.**  
+    2️⃣ **Carga un archivo PDF.**  
+    3️⃣ **Escribe tu pregunta para analizar el contenido.**  
+    🧠 *Ideal para contratos, reportes o investigación académica.*
+    """)
 
 # ============================================================
 # CLAVE API
@@ -156,27 +177,21 @@ if pdf is not None and ke:
         card_start()
         st.subheader("🔎 Procesando documento...")
 
-        # 1️⃣ Extraer texto
         pdf_reader = PdfReader(pdf)
-        text = ""
-        for page in pdf_reader.pages:
-            text += page.extract_text() or ""
+        text = "".join([page.extract_text() or "" for page in pdf_reader.pages])
         st.info(f"Texto extraído: {len(text)} caracteres")
 
-        # 2️⃣ Dividir texto
         text_splitter = CharacterTextSplitter(
             separator="\n", chunk_size=500, chunk_overlap=20, length_function=len
         )
         chunks = text_splitter.split_text(text)
         st.success(f"Documento dividido en {len(chunks)} fragmentos")
 
-        # 3️⃣ Crear embeddings
         with st.spinner("Generando base de conocimiento..."):
             embeddings = OpenAIEmbeddings()
             knowledge_base = FAISS.from_texts(chunks, embeddings)
         st.toast("Base de conocimiento lista 🧠", icon="✅")
 
-        # 4️⃣ Pregunta del usuario
         st.subheader("💭 Escribe tu pregunta:")
         user_question = st.text_area("", placeholder="Ejemplo: ¿Cuál es el objetivo principal del documento?")
 
@@ -203,8 +218,5 @@ elif pdf is not None and not ke:
 else:
     st.info("Carga un archivo PDF para comenzar el análisis.")
 
-# ============================================================
-# FOOTER
-# ============================================================
 st.markdown("---")
-st.caption("💬 RAG PDF Analyzer • Streamlit + LangChain + OpenAI — contraste optimizado y coherencia visual total ⚡️")
+st.caption("💬 RAG PDF Analyzer • Streamlit + LangChain + OpenAI — tema oscuro uniforme y 100% legible ⚡️")
